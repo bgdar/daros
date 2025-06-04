@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/components/modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden overflow-x-hidden`}
       >
-        {children}
+        <ModalProvider>{children}</ModalProvider>
       </body>
     </html>
   );

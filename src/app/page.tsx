@@ -1,8 +1,9 @@
 //halmaan utamaa usakan tidak menggunakn __use client___
 "server component";
-import DashBottom from "@/components/dash-panel-bottom";
+import DashBottom from "@/components/panel-botton/dash-panel-bottom";
 import DashTop from "@/components/dash-panel-top";
-import Destop from "@/components/destop";
+import Destop from "@/components/desktop/destop";
+import MobileWarning from "@/components/mobileWarning";
 
 export default async function home() {
   return (
@@ -12,6 +13,9 @@ export default async function home() {
     >
       {/* dash panuntuk menu aplikasi nya di atas */}
       <DashTop />
+
+      {/* popup peringatan */}
+      <MobileWarning />
 
       {/* tampilan desktop */}
       <Destop />
