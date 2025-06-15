@@ -1,10 +1,18 @@
-// ini adalah dash panel untuk menampung icons icons aplikasi
 "use client";
-import { Circle } from "lucide-react";
-import Terminal from "./components/terminal";
+
+import { LayoutDashboard } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState, useEffect } from "react";
-import FirefoxBrowser from "./components/firefox";
+
+import DraggableWindow from "./DragtableWindow";
+
+interface WindowState {
+  id: number;
+  position: { x: number; y: number };
+  label: string;
+
+  zIndex: number;
+}
 
 const DashBottom = () => {
   //const [zoomActive, setIsZoomActive] = useState(false); // Ambil state dari Context
@@ -14,166 +22,88 @@ const DashBottom = () => {
   const handleToAplikasi = () => {
     router.push("/aplikasi");
   };
+  const [windows, setWindows] = useState<WindowState[]>([]);
+  const [highestZIndex, setHighestZIndex] = useState(100);
 
-  const windowsMain = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [posisition, setPosisition] = useState<{ x: number; y: number }>({
-    x: 100,
-    y: 100,
-  });
-  const [offset, setOffset] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
-  const [isShowingApp, setIsShowingApp] = useState({ show: false, label: "" });
-
-  // useEffect(() => {
-  //   if (windowsMain.current) {
-  //     const width = windowsMain.current.offsetWidth;
-  //     const height = windowsMain.current.offsetHeight;
-  //     setPosisition({
-  //       x: (window.innerWidth - width) / 2,
-  //       y: (window.innerHeight - height) / 2,
-  //     });
-  //   }
-  // }, []);
-
-  const HandleMouseDown = (event: React.MouseEvent) => {
-    if (windowsMain.current) {
-      setIsDragging(true);
-      const rectMain = windowsMain.current.getBoundingClientRect();
-      setOffset({
-        x: event.clientX - rectMain.left,
-        y: event.clientY - rectMain.top,
-      });
+  const addWindow = (label: string) => {
+    const existing = windows.find((w) => w.label === label);
+    if (existing) {
+      focusWindow(existing.id);
+      return;
     }
-  };
 
-  const HandleMoveMouse = (event: MouseEvent) => {
-    if (isDragging && windowsMain.current) {
-      setPosisition({
-        x: event.clientX - offset.x,
-        y: event.clientY - offset.y,
-      });
-    }
-  };
-  const handleMouseUp = () => setIsDragging(false);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", HandleMoveMouse);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", HandleMoveMouse);
-      window.removeEventListener("mouseup", handleMouseUp);
+    const newZ = highestZIndex + 1;
+    const newWindow: WindowState = {
+      id: Date.now(),
+      label,
+      //posis awal window,
+      position: {
+        x: Math.random() * 300 - 150, // Random position for demo
+        y: -400,
+      },
+      zIndex: newZ,
     };
-  }, [isDragging, offset]);
+
+    setWindows((prev) => [...prev, newWindow]);
+    setHighestZIndex(newZ);
+  };
+
+  const closeWindow = (id: number) => {
+    setWindows((prev) => prev.filter((w) => w.id !== id));
+  };
+
+  const focusWindow = (id: number) => {
+    const newZ = highestZIndex + 1;
+    setHighestZIndex(newZ);
+    setWindows((prev) =>
+      prev.map((w) => (w.id === id ? { ...w, zIndex: newZ } : w))
+    );
+  };
+
+  const handleDragWindow = (id: number, pos: { x: number; y: number }) => {
+    setWindows((prev) =>
+      prev.map((w) => (w.id === id ? { ...w, position: pos } : w))
+    );
+  };
 
   return (
-    <div
-      className="absolute bottom-5 left-1/2 transform -translate-x-1/2 w-[50vw] max-w-[600px] p-2 
-                      bg-white/10 backdrop-blur-lg shadow-lg rounded-2xl  justify-around border border-white/20"
-    >
-      <section className="flex relative gap-4 justify-between">
+    <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 w-[90vw] max-w-[600px]">
+      <section className="flex gap-4 justify-between p-4 bg-white/10 backdrop-blur rounded-2xl border border-white/20">
         {DataIcons.map((apk, index) => (
           <div
             key={index}
-            className="flex  p-2 bg-black/20 border border-white/30 rounded-lg transition-transform transform hover:scale-105"
-            onClick={() => {
-              if (apk.label != isShowingApp.label) {
-                setIsShowingApp({ show: true, label: apk.label });
-                //atur posisi Awal aplikasi
-                setPosisition({
-                  x: 480,
-                  y: 230,
-                });
-              } else {
-                //Toggle aplikasi
-                setIsShowingApp({ show: false, label: "" });
-              }
-            }}
+            className="flex p-2 bg-black/20 border border-white/30 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+            onClick={() => addWindow(apk.label)}
           >
-            <img
-              loading="lazy"
-              src={apk.src}
-              alt={apk.label}
-              className="w-8 h-8"
-            />
+            <img src={apk.src} alt={apk.label} className="w-8 h-8" />
           </div>
         ))}
 
-        {/* tampilkan PEMBUNGKUS  yang bisa di draq dan membesar sesaui atau pembungkus semua Aplikasi */}
-        {isShowingApp.show && (
-          <main
-            ref={windowsMain}
-            className="fixed  inset-0 bg-transparent  shadow-lg border-2 border-gray-300 -z-30"
-            style={{
-              left: posisition.x - 300,
-              top: posisition.y - 600,
-              height: "16rem",
-              width: "24rem",
-            }}
-          >
-            <header
-              onMouseDown={HandleMouseDown}
-              className="text-center cursor-move rounded-t-lg select-none"
-            >
-              {" "}
-              <h3> {"nama apk"}</h3>
-              <div className="flex items-center gap-2 px-3 py-2">
-                <div
-                  className="w-3 h-3 bg-red-500 rounded-full hover:brightness-90 cursor-pointer"
-                  title="Close"
-                ></div>
-                <div
-                  className="w-3 h-3 bg-yellow-500 rounded-full hover:brightness-90 cursor-pointer"
-                  title="Minimize"
-                ></div>
-                <div
-                  className="w-3 h-3 bg-green-500 rounded-full hover:brightness-90 cursor-pointer"
-                  title="Maximize"
-                ></div>
-              </div>
-            </header>
-
-            <div>
-              {/* di sini render componets */}
-              {renderCardApp(isShowingApp.label)}
-            </div>
-          </main>
-        )}
-
-        {/* tampilan menu All Apliaksi */}
-        <div onClick={handleToAplikasi}>
-          <img
-            className="w-12 h-12  transition-transform transform hover:scale-105"
-            src="/icons/dashboard.png"
-            alt=""
-          />
-        </div>
+        <button
+          onClick={handleToAplikasi}
+          className="flex p-2 bg-black/20 border border-white/30 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+        >
+          <LayoutDashboard className="w-8 h-8" />
+        </button>
       </section>
+
+      {windows.map((win) => (
+        <DraggableWindow
+          key={win.id}
+          win={win}
+          onClose={closeWindow}
+          onDrag={handleDragWindow}
+          onFocus={focusWindow}
+        />
+      ))}
     </div>
   );
 };
-
-/** data yang tapil di ambil dari nama __DataIcons.label__  */
-function renderCardApp(nameApp: string) {
-  switch (nameApp) {
-    case "Terminal":
-      return <Terminal />;
-    case "VSCode":
-      return <img src="/icons/vscode.png" alt="VSCode" className="w-8 h-8" />;
-    case "Firefox":
-      return <FirefoxBrowser />;
-    default:
-      null;
-  }
-}
 
 interface DataIconsProps {
   src: string;
   label: string;
 }
-
 const DataIcons: DataIconsProps[] = [
   { src: "/icons/github.png", label: "GitHub" },
   { src: "/icons/vscode.png", label: "VSCode" },

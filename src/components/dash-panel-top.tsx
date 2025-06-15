@@ -40,10 +40,10 @@ const CardMenu = () => {
 
 const StatusSystem = () => {
   return (
-    <div className="flex ">
-      <Network className="text-white" />
-      <Volume2 className="text-white" />
-      <Power className="text-white" />
+    <div className="flex justify-between content-center items-center  space-x-4">
+      <Network className="text-white size-5" />
+      <Volume2 className="text-white size-5" />
+      <Power className="text-white size-5" />
     </div>
   );
 };
