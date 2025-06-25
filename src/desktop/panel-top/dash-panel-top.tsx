@@ -60,7 +60,7 @@ const DashTop = () => {
           onMouseLeave={() => SetIsShowMenu(false)}
         >
           {IsShowMenu ? <CardMenu /> : ""}
-          <img src="daros.png" className="w-full h-auto" alt="" />
+          <img src="daros.png" className="w-4 h-4 " alt="" />
         </div>
         <div>
           <StatusSystem />
