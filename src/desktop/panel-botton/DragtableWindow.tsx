@@ -1,8 +1,8 @@
 "use client";
 
 import React, { use, useEffect, useRef, useState } from "react";
-import FirefoxBrowser from "./components/firefox";
-import Terminal from "./components/terminal";
+import FirefoxBrowser from "../components-apk/firefox";
+import Terminal from "../components-apk/terminal";
 import { Circle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,9 @@ interface Props {
   onFocus: (id: number) => void;
 }
 
-/** data yang tapil di ambil dari nama __DataIcons.label__  */
+/** data yang tapil di ambil dari nama __DataIcons.label__
+ * setiap data adalah __apk__ yang di tampung
+ */
 function renderCardApp(nameApp: string) {
   switch (nameApp) {
     case "Terminal":
@@ -32,6 +34,7 @@ function renderCardApp(nameApp: string) {
   }
 }
 
+/** ini adalah windows yang membungkus setiap apk */
 const DraggableWindow: React.FC<Props> = ({
   win,
   onClose,
@@ -84,8 +87,8 @@ const DraggableWindow: React.FC<Props> = ({
       style={{
         top: win.position.y,
         left: win.position.x,
-        width: "26rem",
-        height: "18rem",
+        width: "28rem",
+        height: "20rem",
         zIndex: win.zIndex,
       }}
     >

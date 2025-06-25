@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import ContextMenu from "./contextMenu";
-import CardWalpapper from "./components/cardWalpapper";
-import Word from "./components/cardWord";
-import { useModal } from "../modal";
-import { X } from "lucide-react";
+import CardWalpapper from "./components-context-menu/cardWalpapper";
+import Word from "./components-context-menu/cardWord";
+import { useModal } from "./destop-modal";
+import DraggableWindow from "./panel-botton/DragtableWindow";
 
 const dataWalpaper = [
   {
@@ -112,6 +112,7 @@ const Destop = () => {
         });
       }}
     >
+      {/* saat di click kanan context-menu muncul */}
       {contextMenu && (
         <div className="relative" ref={menuRef}>
           <ContextMenu
@@ -119,15 +120,6 @@ const Destop = () => {
             y={contextMenu.y}
             onClose={() => setContextMenu(null)}
           />
-          {/* { && (
-            <CardWalpapper
-              Poss={{
-                x: (contextMenu?.x ?? 0) - 460,
-                y: (contextMenu?.y ?? 0) + 10,
-                wallpapers: dataWalpaper.map((walpaper) => walpaper.src),
-              }}
-            />
-          )} */}
 
           {thisItemDirection.id && (
             // lakukan manipulasi pada element ii jika keluar dari
@@ -145,8 +137,8 @@ const Destop = () => {
         </div>
       )}
 
-      {/* card untuk menampung walpapper */}
-      {/* jika hasilnya undifinde gunakan 0 sbg default */}
+      {/* apk  */}
+      {/* <DraggableWindow/> */}
     </div>
   );
 };

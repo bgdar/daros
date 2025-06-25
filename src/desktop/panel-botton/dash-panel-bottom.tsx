@@ -39,7 +39,7 @@ const DashBottom = () => {
       //posis awal window,
       position: {
         x: Math.random() * 300 - 150, // Random position for demo
-        y: -400,
+        y: Math.random() * 300 - 400,
       },
       zIndex: newZ,
     };
@@ -68,7 +68,7 @@ const DashBottom = () => {
 
   return (
     <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 w-[90vw] max-w-[600px]">
-      <section className="flex gap-4 justify-between p-4 bg-white/10 backdrop-blur rounded-2xl border border-white/20">
+      <section className="flex gap-4 p-1 justify-between bg-white/10 backdrop-blur rounded-2xl border border-white/20">
         {DataIcons.map((apk, index) => (
           <div
             key={index}

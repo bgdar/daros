@@ -1,5 +1,4 @@
-import { useModal } from "../modal";
-
+import { useModal } from "./destop-modal";
 import {
   Folder,
   File,

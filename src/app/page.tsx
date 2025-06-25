@@ -1,8 +1,8 @@
 //halmaan utamaa usakan tidak menggunakn __use client___
 "server component";
-import DashBottom from "@/components/panel-botton/dash-panel-bottom";
-import DashTop from "@/components/dash-panel-top";
-import Destop from "@/components/desktop/destop";
+import DashBottom from "@/desktop/panel-botton/dash-panel-bottom";
+import DashTop from "@/desktop/panel-top/dash-panel-top";
+import Destop from "@/desktop/destop";
 import MobileWarning from "@/components/mobileWarning";
 
 export default async function home() {

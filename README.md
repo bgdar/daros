@@ -2,9 +2,7 @@
 
 Website yang menirukan sistem operasi dengan antarmuka Desktop GNOME.
 
----
-
-![Daros](./public/daros.png)
+## Demo
 
 ## 🌟 **Fitur**
 
@@ -63,8 +61,7 @@ http://localhost:3000
 3. `destop/destop.tsx` : Adalah tampilan utama Destop Gnome
 4. `dash-panel-top.tsx` : menjadi header menu (**Taskbar**) di tengah
 
-### 🖥️ **Dibuat oleh:**
+### components Apk
 
-[bgdar](https://github.com/bgdar)
-
-Happy coding! 🚀
+1. Firefox
+   menggunakan `Iframe` (<iframe>) adalah elemen HTML yang memungkinkan kamu menyematkan halaman web lain di dalam halaman web kamu — seperti membuat jendela kecil ke situs lain di dalam browser kamu. Ini adalah cara utama untuk membuat "browser mini" di dalam komponen React atau HTML biasa.
