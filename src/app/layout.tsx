@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ModalProvider } from "@/desktop/destop-modal";
+
+import { ModalDestopProvider } from "@/desktop/destop-modal";
+import { ApkModalProvider } from "@/desktop/aplikasi-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +32,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden  `}
       >
-        <ModalProvider>{children}</ModalProvider>
+        <ApkModalProvider>
+          <ModalDestopProvider>{children}</ModalDestopProvider>
+        </ApkModalProvider>
       </body>
     </html>
   );

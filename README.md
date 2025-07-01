@@ -20,18 +20,6 @@ Website yang menirukan sistem operasi dengan antarmuka Desktop GNOME.
 
 ---
 
-1. **Instal dependensi:**
-
-```bash
-npm install
-# atau
-yarn install
-# atau
-pnpm install
-# atau
-bun install
-```
-
 1. **Jalankan server pengembangan:**
 
 ```bash
@@ -60,6 +48,11 @@ http://localhost:3000
 2. `mobilWarning.tsx` : Sebuah popup yg akan muncul menurut settingan tertentu
 3. `destop/destop.tsx` : Adalah tampilan utama Destop Gnome
 4. `dash-panel-top.tsx` : menjadi header menu (**Taskbar**) di tengah
+
+---
+
+1. `destop/destop-modal` : Pembugkus lapisan pertama App
+2. `destop/aplikasi-modal` : Pembugkus lapisan kedua App yg mengelola data terkait Aplikasi
 
 ### components Apk
 

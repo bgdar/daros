@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import ContextMenu from "./contextMenu";
-import CardWalpapper from "./components-context-menu/cardWalpapper";
-import Word from "./components-context-menu/cardWord";
-import { useModal } from "./destop-modal";
-import DraggableWindow from "./panel-botton/DragtableWindow";
+import ContextMenu from "./context-menu/contextMenu";
+
+import Word from "./components-apk/word";
+import { useModalDestop } from "./destop-modal";
+import DraggableWindow from "./windows-apk/DragtableWindow";
+import { useModalApk } from "./aplikasi-modal";
 
 const dataWalpaper = [
   {
@@ -32,11 +33,13 @@ function renderItemCard(content: string) {
   switch (content) {
     case "show-walpaper":
       return (
-        <CardWalpapper
-          Poss={{
-            wallpapers: dataWalpaper.map((walpaper) => walpaper.src),
-          }}
-        />
+        //   <CardWalpapper
+        //     Poss={{
+        //       wallpapers: dataWalpaper.map((walpaper) => walpaper.src),
+        //     }}
+        //   />
+        // );
+        <div>twalpapper</div>
       );
     case "word":
       return <Word />;
@@ -56,7 +59,7 @@ const Destop = () => {
   }>({ width: 0, height: 0 });
 
   const menuRef = useRef<HTMLDivElement>(null);
-  const { thisItemDirection } = useModal();
+  // const { thisItemDirection } = useModalDestop();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -121,7 +124,7 @@ const Destop = () => {
             onClose={() => setContextMenu(null)}
           />
 
-          {thisItemDirection.id && (
+          {/* {thisItemDirection.id && (
             // lakukan manipulasi pada element ii jika keluar dari
             <div
               style={{
@@ -131,9 +134,9 @@ const Destop = () => {
               }}
               className="absolute z-50"
             >
-              {renderItemCard(thisItemDirection.id)}
+              {renderItemCard(thisItemDirection.id)} tidak digunakan lagi melainkan menggunakan drgatableWindos untuk app
             </div>
-          )}
+          )} */}
         </div>
       )}
 

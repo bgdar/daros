@@ -1,8 +1,9 @@
 //halmaan utamaa usakan tidak menggunakn __use client___
 "server component";
-import DashBottom from "@/desktop/panel-botton/dash-panel-bottom";
+import DashButtom from "@/desktop/panel-button/dash-panel-buttom";
 import DashTop from "@/desktop/panel-top/dash-panel-top";
 import Destop from "@/desktop/destop";
+import WrappingApps from "@/desktop/windows-apk/wrappingWindowsApp";
 import MobileWarning from "@/components/mobileWarning";
 
 export default async function home() {
@@ -17,11 +18,14 @@ export default async function home() {
       {/* popup peringatan */}
       <MobileWarning />
 
+      {/* Windows Applikasi */}
+      <WrappingApps />
+
       {/* tampilan desktop */}
       <Destop />
 
       {/* dash panel untuk menu aplikasi nya di bawha*/}
-      <DashBottom />
+      <DashButtom />
     </div>
   );
 }
